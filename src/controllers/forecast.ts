@@ -6,12 +6,6 @@ import { Forecast } from '../services/Forecast';
 
 const forecast = new Forecast();
 
-class ForecastControllerError extends InternalError {
-  constructor(message: string) {
-    super(message, 500);
-  }
-}
-
 @Controller('forecast')
 export class ForecastController {
   @Get('')
@@ -24,6 +18,7 @@ export class ForecastController {
       const forecastData = await forecast.processForecastForBeaches(beaches);
       res.status(200).send(forecastData);
     } catch (error) {
+      console.error(error);
       res
         .status(500)
         .send({ error: 'Something went wrong processing forecast' });
