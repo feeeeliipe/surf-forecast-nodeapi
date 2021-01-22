@@ -1,4 +1,4 @@
-import { Beach } from '../../src/models/beach';
+import { Beach, BeachPosition } from '../../src/models/beach';
 
 describe('Beaches functional tests', () => {
   beforeAll(async () => {
@@ -11,7 +11,7 @@ describe('Beaches functional tests', () => {
         lat: -26.940075,
         lng: -48.6396993,
         name: 'Praia Brava - Itajaí',
-        position: 'E',
+        position: BeachPosition.E,
       };
 
       const response = await global.testRequest.post('/beaches').send(newBeach);
@@ -19,7 +19,7 @@ describe('Beaches functional tests', () => {
       expect(response.body).toEqual(expect.objectContaining(newBeach));
     });
 
-    it('should throw 422 when there is a validation error', async () => {
+    it('should return 422 when there is a validation error', async () => {
       const newBeach = {
         lat: 'invalid_string',
         lng: 151.289824,
