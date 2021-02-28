@@ -7,6 +7,7 @@ import * as database from '../src/database';
 import { BeachesController } from './controllers/beaches';
 import dotenv from 'dotenv';
 import { InternalError } from './util/errors/internal-error';
+import { UsersController } from './controllers/users';
 
 dotenv.config();
 
@@ -43,9 +44,14 @@ export class SetupServer extends Server {
   }
 
   private setupControllers(): void {
+    const usersController = new UsersController();
     const forecastController = new ForecastController();
     const beachesController = new BeachesController();
-    this.addControllers([forecastController, beachesController]);
+    this.addControllers([
+      usersController,
+      forecastController,
+      beachesController,
+    ]);
   }
 
   private async setupDatabase(): Promise<void> {
