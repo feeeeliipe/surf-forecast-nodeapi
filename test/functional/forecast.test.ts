@@ -46,12 +46,16 @@ describe('Beach forecast functional tests', () => {
       },
     })
       .defaultReplyHeaders({ 'access-control-allow-origin': '*' })
-      .get('/v1/weather/point')
-      .query({ lat: '-33.792726', lng: '151.289824' })
+      .get('/weather/point')
+      .query({
+        lat: '-33.792726',
+        lng: '151.289824',
+        params: /(.*)/,
+        source: 'noaa',
+      })
       .replyWithError('Something went wrong');
 
     const { status } = await global.testRequest.get(`/forecast`);
-
     expect(status).toBe(500);
   });
 });
